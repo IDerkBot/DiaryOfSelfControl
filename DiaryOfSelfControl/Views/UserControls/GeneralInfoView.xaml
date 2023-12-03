@@ -1,0 +1,338 @@
+﻿<UserControl
+    x:Class="DiaryOfSelfControl.Views.UserControls.GeneralInfoView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:sc="clr-namespace:StratumUi.Wpf.Core.Controls;assembly=StratumUi.Wpf.Core"
+    xmlns:vm="clr-namespace:DiaryOfSelfControl.ViewModels"
+    xmlns:m="clr-namespace:DiaryOfSelfControl.Models.DatabaseEntities;assembly=DiaryOfSelfControl.Models"
+    xmlns:scv="clr-namespace:StratumUi.Wpf.Core.Converters;assembly=StratumUi.Wpf.Core"
+    d:DesignHeight="600"
+    d:DataContext="{d:DesignInstance vm:GeneralInfoViewModel}"
+    d:DesignWidth="600"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <scv:BooleanToVisibilityConverter
+            x:Key="NormalBoolToVisibilityConverter"
+            TrueValue="Visible"
+            FalseValue="Collapsed" />
+        <scv:BooleanToVisibilityConverter
+            x:Key="InvertBoolToVisibilityConverter"
+            TrueValue="Collapsed"
+            FalseValue="Visible" />
+    </UserControl.Resources>
+    <Grid>
+        <ListBox
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+            ItemsSource="{Binding Records}">
+            <ListBox.Resources>
+                <DataTemplate DataType="{x:Type m:Record}">
+                    <Border
+                        Width="200"
+                        Height="300"
+                        Margin="10"
+                        CornerRadius="6"
+                        Background="White">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="20"
+                                ShadowDepth="0"
+                                Color="DarkGray" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="sc:Icon" BasedOn="{StaticResource {x:Type sc:Icon}}">
+                                    <Setter Property="Width" Value="52" />
+                                    <Setter Property="Height" Value="50" />
+                                    <Setter Property="Fill">
+                                        <Setter.Value>
+                                            <LinearGradientBrush StartPoint=".5,0" EndPoint=".5,1">
+                                                <LinearGradientBrush.GradientStops>
+                                                    <GradientStop Offset="0" Color="#0B0B0B" />
+                                                    <GradientStop Offset=".5" Color="#F50808" />
+                                                    <GradientStop Offset="1" Color="#FF9900" />
+                                                </LinearGradientBrush.GradientStops>
+                                            </LinearGradientBrush>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+
+                                <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                    <Setter Property="FontSize" Value="24" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="104" />
+                                <RowDefinition Height="76" />
+                            </Grid.RowDefinitions>
+                            <Border
+                                Grid.Row="0"
+                                Width="180"
+                                Height="100">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Offset=".2" Color="#00ffffff" />
+                                            <GradientStop Offset=".5" Color="#10000000" />
+                                            <GradientStop Offset=".8" Color="#00ffffff" />
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <Grid>
+                                    <sc:Icon Visibility="{Binding IsMorning, Converter={StaticResource NormalBoolToVisibilityConverter}}" Kind="WeatherSunsetUp" />
+                                    <sc:Icon Visibility="{Binding IsMorning, Converter={StaticResource InvertBoolToVisibilityConverter}}" Kind="WeatherSunsetDown" />
+                                </Grid>
+                            </Border>
+
+                            <Label
+                                Grid.Row="1"
+                                Visibility="{Binding IsMorning, Converter={StaticResource NormalBoolToVisibilityConverter}}"
+                                Content="УТРО" />
+
+                            <Label
+                                Grid.Row="1"
+                                Visibility="{Binding IsMorning, Converter={StaticResource InvertBoolToVisibilityConverter}}"
+                                Content="ВЕЧЕР" />
+
+                            <!--  INFO  -->
+                            <Grid Grid.Row="2">
+                                <Grid.Resources>
+                                    <Style TargetType="sc:Icon" BasedOn="{StaticResource {x:Type sc:Icon}}">
+                                        <Setter Property="Width" Value="24" />
+                                        <Setter Property="Height" Value="24" />
+                                    </Style>
+                                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                        <Setter Property="FontSize" Value="18" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <Label Content="{Binding DiastolicPressure}" />
+                                    <Label Margin="-10,0" Content="/" />
+                                    <Label Content="{Binding SystolicPressure}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <sc:Icon Kind="HeartPulse" />
+                                    <Label Content="{Binding Pulse}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding IsMorning, Converter={StaticResource NormalBoolToVisibilityConverter}}"
+                                    Orientation="Horizontal">
+                                    <sc:Icon Kind="Temperature" />
+                                    <Label Content="{Binding Temperature}" />
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="{Binding IsMorning, Converter={StaticResource InvertBoolToVisibilityConverter}}"
+                                    Orientation="Horizontal">
+                                    <sc:Icon Kind="Footprints" />
+                                    <Label Content="{Binding StepsCount}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type m:ExerciseRecord}">
+                    <Border
+                        Width="200"
+                        Height="300"
+                        Margin="10"
+                        CornerRadius="6"
+                        Background="White">
+                        <Border.Effect>
+                            <DropShadowEffect
+                                BlurRadius="20"
+                                ShadowDepth="0"
+                                Color="DarkGray" />
+                        </Border.Effect>
+                        <Grid>
+                            <Grid.Resources>
+                                <Style TargetType="sc:Icon" BasedOn="{StaticResource {x:Type sc:Icon}}">
+                                    <Setter Property="Width" Value="52" />
+                                    <Setter Property="Height" Value="50" />
+                                    <Setter Property="Fill" Value="ForestGreen" />
+                                </Style>
+
+                                <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                    <Setter Property="FontSize" Value="24" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100" />
+                                <RowDefinition Height="104" />
+                                <RowDefinition Height="76" />
+                            </Grid.RowDefinitions>
+
+                            <Border
+                                Grid.Row="0"
+                                Width="180"
+                                Height="100">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStop Offset=".2" Color="#00ffffff" />
+                                            <GradientStop Offset=".5" Color="#10000000" />
+                                            <GradientStop Offset=".8" Color="#00ffffff" />
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <sc:Icon Kind="RunFast" />
+                            </Border>
+
+                            <Label Grid.Row="1" Content="{Binding Exercise.Name}" />
+
+                            <!--  INFO  -->
+                            <Grid Grid.Row="2">
+                                <Grid.Resources>
+                                    <Style TargetType="sc:Icon" BasedOn="{StaticResource {x:Type sc:Icon}}">
+                                        <Setter Property="Width" Value="24" />
+                                        <Setter Property="Height" Value="24" />
+                                    </Style>
+                                    <Style TargetType="Label" BasedOn="{StaticResource {x:Type Label}}">
+                                        <Setter Property="FontSize" Value="18" />
+                                    </Style>
+                                </Grid.Resources>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <Label Content="{Binding DiastolicPressure}" />
+                                    <Label Margin="-10,0" Content="/" />
+                                    <Label Content="{Binding SystolicPressure}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <sc:Icon Kind="HeartPulse" />
+                                    <Label Content="{Binding Pulse}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Orientation="Horizontal">
+                                    <sc:Icon Kind="Timelapse" />
+                                    <Label Content="{Binding Duration}" />
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListBox.Resources>
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="SnapsToDevicePixels" Value="True" />
+                    <Setter Property="Padding" Value="0" />
+                    <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                    <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderBrush" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+                    <Setter Property="Width" Value="230" />
+                    <Setter Property="Height" Value="330" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                <Border
+                                    x:Name="Bd"
+                                    Padding="{TemplateBinding Padding}"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="6"
+                                    SnapsToDevicePixels="true">
+                                    <ContentPresenter
+                                        HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                        VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="True" />
+                                        </MultiTrigger.Conditions>
+                                        <!--  Цвет при наведении  -->
+                                        <Setter Property="Background" Value="#30D3D3D3" />
+                                    </MultiTrigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                            <Condition Property="IsSelected" Value="True" />
+                                        </MultiTrigger.Conditions>
+
+                                        <Setter Property="Background" Value="#A0D3D3D3" />
+                                    </MultiTrigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                            <Condition Property="IsSelected" Value="True" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter Property="Background" Value="#A0D3D3D3" />
+                                    </MultiTrigger>
+                                    <Trigger Property="IsEnabled" Value="False" />
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+    </Grid>
+</UserControl>

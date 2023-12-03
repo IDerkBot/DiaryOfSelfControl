@@ -7,10 +7,24 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+
+
     <ItemGroup>
-      <Folder Include="Infrastructure\" />
-      <Folder Include="ViewModels\" />
-      <Folder Include="Views\" />
+      <Page Update="Views\MainWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.77" />
+      <PackageReference Include="StratumUi.Core" Version="1.2.3" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\DiaryOfSelfControl.DataAccessLogic\DiaryOfSelfControl.DataAccessLogic.csproj" />
+      <ProjectReference Include="..\DiaryOfSelfControl.Models\DiaryOfSelfControl.Models.csproj" />
     </ItemGroup>
 
 </Project>

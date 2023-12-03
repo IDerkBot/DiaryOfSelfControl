@@ -8,6 +8,7 @@ public class Person
     public string? Patrinymic { get; set; }
     public bool IsMale { get; set; }
     public DateTime BirthDay { get; set; }
+    public byte[] Photo { get; set; }
     public uint Age => DateTime.Now.Subtract(BirthDay).Days >= 365 ? (uint)(DateTime.Now.Subtract(BirthDay).Days / 365) : 0;
     
     public User User { get; set; }
