@@ -7,6 +7,7 @@
     xmlns:wpf="clr-namespace:StratumUi.Wpf.Core.AttachedProperties;assembly=StratumUi.Wpf.Core"
     xmlns:vm="clr-namespace:DiaryOfSelfControl.ViewModels"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:dosc.Wpf="clr-namespace:DiaryOfSelfControl.Wpf;assembly=DiaryOfSelfControl.Wpf"
     x:Name="Root"
     Title="AuthorizationView"
     Width="400"
@@ -67,7 +68,7 @@
             </StackPanel>
             <StackPanel Grid.Row="3" Margin="0,10,0,0">
                 <Label Content="Пароль" />
-                <TextBox Text="{Binding Password}" />
+                <dosc.Wpf:SecuredPassword Password="{Binding Password}" />
             </StackPanel>
 
             <CheckBox

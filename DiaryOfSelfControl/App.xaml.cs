@@ -16,7 +16,7 @@ namespace DiaryOfSelfControl
         {
             base.OnStartup(e);
 
-            Database = new ApplicationDbContext();
+            // Database = new ApplicationDbContext();
             MainWindow = new MainWindow();
 
             var authViewModel = new AuthorizationViewModel();

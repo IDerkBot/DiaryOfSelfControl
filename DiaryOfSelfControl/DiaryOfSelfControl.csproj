@@ -25,6 +25,7 @@
     <ItemGroup>
       <ProjectReference Include="..\DiaryOfSelfControl.DataAccessLogic\DiaryOfSelfControl.DataAccessLogic.csproj" />
       <ProjectReference Include="..\DiaryOfSelfControl.Models\DiaryOfSelfControl.Models.csproj" />
+      <ProjectReference Include="..\DiaryOfSelfControl.Wpf\DiaryOfSelfControl.Wpf.csproj" />
     </ItemGroup>
 
 </Project>

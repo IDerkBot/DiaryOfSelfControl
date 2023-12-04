@@ -100,10 +100,26 @@ public class AuthorizationViewModel : BaseViewModel
             if (!File.Exists(path))
                 File.Create(path);
         }
+
+        if (string.IsNullOrWhiteSpace(Login))
+        {
+            MessageBox.Show("Вы не ввели логин");
+        }
+        else if (string.IsNullOrWhiteSpace(Password))
+        {
+            MessageBox.Show("Вы не ввели пароль");
+        }
+        
+        // TODO Проверка пользователя
+        
+        // В случае если пользователь существует
+        
+        // Проверяем правильный пароль
+        
         
         if(parameter is AuthorizationView view) view.Close();
         
-        // Запись данных в папку в случае если стоит галочка "Запомнить меня"
+        // TODO Запись данных в папку в случае если стоит галочка "Запомнить меня"
     }
 
     private bool CanEnterCommandExecute(object? parameter) => true;
